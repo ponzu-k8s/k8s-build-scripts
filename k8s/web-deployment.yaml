@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    name: web
+  name: web
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: web
+    spec:
+      containers:
+      - name: web
+        image: us.gcr.io/ponzu-example/web:v1
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        # this name must match the volumes.name below
+        - name: web-persistent-storage
+          mountPath: /public
+      restartPolicy: Always
+      volumes:
+      # this name must match the volumeMounts.name above
+      - name: web-persistent-storage
+        gcePersistentDisk:
+          # this disk must already exist
+          pdName: web-disk
+          fsType: ext4
+status: {}

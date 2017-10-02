@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    name: admin
+  name: admin
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: admin
+    spec:
+      containers:
+      - name: admin
+        image: us.gcr.io/ponzu-example/admin:v1
+        command: ["bash"]
+        args: ["/ponzu-share/start_admin.sh", "start"]
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - name: https
+          containerPort: 443
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        # this name must match the volumes.name below
+        - name: admin-persistent-storage
+          mountPath: /ponzu-share
+      restartPolicy: Always
+      volumes:
+      - name: admin-persistent-storage
+        gcePersistentDisk:
+          # this disk must already exist
+          pdName: admin-disk
+          fsType: ext4
+status: {}
