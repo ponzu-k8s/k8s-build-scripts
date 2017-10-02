@@ -19,8 +19,11 @@ ENV PROJECT_SHARE $GOSRC/project
 VOLUME $PROJECT_SHARE
 WORKDIR $PROJECT_SHARE
 
+# copy startup script to /usr/local/bin
+COPY start_admin /usr/local/bin/start_admin
+
 # expose port 8080 for ponzu admin server
 EXPOSE 8080
 
 # its better to define this in deployment yaml
-# CMD [ "bash" , "/go/src/project/start_admin.sh start" ]
+# CMD [ "start_admin" ]
