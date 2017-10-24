@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # script to build & start ponzu project admin in container
+
 echo "building ponzu from project directory"
 cd $PROJECT_SHARE && ponzu build
 
 echo "starting ponzu admin and api"
-cd $PROJECT_SHARE && ponzu run --port=8080 admin,api
+# specify binding to port 0.0.0.0 or ponzu will bind to localhost
+cd $PROJECT_SHARE && ponzu run --bind=0.0.0.0 --port=8080 admin,api
