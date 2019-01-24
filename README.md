@@ -1,21 +1,19 @@
-ponzu-k8s build files
-
 # howto deploy ponzu-k8s on gke
 
-for https://github.com/ponzu-k8s
+for <https://github.com/ponzu-k8s>
 
 ## setup new gke project
-* go to https://console.cloud.google.com/start & create a new project named ‘ponzu-example’ (dont put quotes in name)
-* enable billing for project at https://console.cloud.google.com/billing
-* enable compute engine api at https://console.cloud.google.com/apis/api/compute_component/overview
-* enable container engine api at https://console.cloud.google.com/apis/api/container/overview
+* go to <https://console.cloud.google.com/start> & create a new project named ‘ponzu-example’ (dont put quotes in name)
+* enable billing for project at <https://console.cloud.google.com/billing>
+* enable compute engine api at <https://console.cloud.google.com/apis/api/compute_component/overview>
+* enable container engine api at <https://console.cloud.google.com/apis/api/container/overview>
 
 ## setup gke toolchain
 * install google cloud sdk & kubectl
   - install locally to interact with gke from your local console:
     * https://cloud.google.com/sdk/docs/quickstarts
     * (in console) $ gcloud components install kubectl
-  - *or* use the google cloud shell: https://cloud.google.com/shell/docs/quickstart
+  - *or* use the google cloud shell: <https://cloud.google.com/shell/docs/quickstart>
 * set defaults for gcloud (in console)
   - `$ gcloud auth login`
   - `$ gcloud config set project ponzu-example`
@@ -40,7 +38,7 @@ for https://github.com/ponzu-k8s
     * find instance with ‘ponzu-cluster’ in the name
     * in following command replace gke-ponzu-cluster-... with that name
   - `$ export INSTANCE_NAME=gke-ponzu-cluster-default-pool-<*>-<*>`
-    * for example: $ export INSTANCE_NAME=gke-ponzu-cluster-default-pool-e3d8f4f4-jn4h
+    * for example: `$ export INSTANCE_NAME=gke-ponzu-cluster-default-pool-e3d8f4f4-jn4h`
 * attach disks to instance (this is only necessary to initialize disks, k8s will later automatically attach admin-disk and web-disk to the proper containers)
   - `$ gcloud compute instances attach-disk $INSTANCE_NAME --disk admin-disk`
   - `$ gcloud compute instances attach-disk $INSTANCE_NAME --disk web-disk`
@@ -100,8 +98,8 @@ $ gcloud compute ssh $INSTANCE_NAME
   - `$ gcloud compute instances detach-disk $INSTANCE_NAME --disk web-disk`
 
 ## pull docker & k8s build files from git repo
-* clone github.com/ponzu-k8s/build repo locally
-  - `$ git clone https://github.com/ponzu-k8s/build.git ~/ponzu-k8s/build`
+* clone (this) github.com/ponzu-k8s/k8s-build-scripts repo locally
+  - `$ git clone https://github.com/ponzu-k8s/k8s-build-scripts.git ~/ponzu-k8s/build`
 
 ## build & upload docker images
 * install docker on your system -> <http://www.letmegooglethat.com/?q=install+docker>
